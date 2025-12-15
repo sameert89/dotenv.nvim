@@ -8,7 +8,7 @@ dotenv.config = {
   event = "VimEnter",
   enable_on_load = true,
   verbose = true,
-  path = vim.fn.stdpath('config') .. '/.env',
+  file_name = '.env',
 }
 
 local function notify(msg, level)
@@ -23,8 +23,8 @@ local function notify(msg, level)
   vim.notify(msg, vim.log.levels[level])
 end
 
-local function read_file(path)
-  local fd = assert(uv.fs_open(path, "r", 438))
+local function read_file(file_name)
+  local fd = assert(uv.fs_open(file_name, "r", 438))
   local stat = assert(uv.fs_fstat(fd))
   local data = assert(uv.fs_read(fd, stat.size, 0))
   assert(uv.fs_close(fd))
@@ -60,7 +60,7 @@ local function parse_data(data)
 end
 
 local function get_env_file()
-  local files = vim.fs.find(dotenv.config.path, { upward = true, type = "file" })
+  local files = vim.fs.find(dotenv.config.file_name, { upward = true, type = "file", path = vim.fn.stdfile_name('config') })
   if #files == 0 then
     return
   end
