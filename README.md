@@ -34,28 +34,10 @@ Additional settings are:
 require('dotenv').setup({
   enable_on_load = true, -- will load your .env file upon loading a buffer
   verbose = false, -- show error notification if .env file is not found and if .env is loaded
-  file_name = 'myenvfile.env' -- will override the default file name '.env'
+  path = 'myenvfile.env' -- by default it looks for a .env file in the config directory
 })
 ```
 
 # Usage
 
-## Loading .env
-
-If you prefer to not load the .env file upon opening a file, you can use the user command:
-
-```
-:Dotenv
-```
-
-Optionally use a file as param, if the file is not in the current directory
-
-```
-:Dotenv PATH
-```
-
-## Inspecting an env (must load env first)
-
-```
-:DotenvGet ENV
-```
+This populates the standard vim.env[] table, you can access an env variable by vim.env["KEY_NAME"]
