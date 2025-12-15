@@ -1,4 +1,4 @@
-A minimalist .env support for Neovim (WIP)
+Load `.env` files from neovim's config folder.
 
 # Prerequisites
 
