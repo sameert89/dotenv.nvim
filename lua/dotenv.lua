@@ -67,10 +67,8 @@ local function get_env_file()
   return files[1]
 end
 
-local function load(file)
-  if file == nil then
-    file = get_env_file()
-  end
+local function load()
+  file = get_env_file()
 
   local ok, data = pcall(read_file, file)
   if not ok then
@@ -82,24 +80,8 @@ local function load(file)
   notify(".env file loaded")
 end
 
-dotenv.setup = function(args)
-  dotenv.config = vim.tbl_extend("force", dotenv.config, args or {})
-
-  vim.api.nvim_create_user_command("Dotenv", function(opts)
-    dotenv.command(opts)
-  end, { nargs = "?", complete = "file" })
-  vim.api.nvim_create_user_command("DotenvGet", function(opts)
-    dotenv.get(opts.fargs)
-  end, { nargs = 1 })
-
-  if dotenv.config.enable_on_load then
-    local group = vim.api.nvim_create_augroup("Dotenv", { clear = true })
-    vim.api.nvim_create_autocmd(dotenv.config.event, { group = group, pattern = "*", callback = dotenv.autocmd })
-  end
-end
-
-dotenv.get = function(arg)
-  local var = string.upper(arg[1])
+dotenv.get = function(key)
+  local var = string.upper(key)
   if vim.env[var] == nil then
     print(var .. ": not found")
     return
@@ -107,20 +89,6 @@ dotenv.get = function(arg)
   print(vim.env[var])
 end
 
-dotenv.autocmd = function()
-  load()
-end
-
-dotenv.command = function(opts)
-  local args
-
-  if opts ~= nil then
-    if #opts.fargs > 0 then
-      args = opts.fargs[1]
-    end
-  end
-
-  load(args)
-end
+load()
 
 return dotenv
