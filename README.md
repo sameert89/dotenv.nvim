@@ -17,7 +17,13 @@ Neovim 0.7.0+
 Using `packer`
 
 ```lua
-use { "ellisonleao/dotenv.nvim" }
+use { "sameert89/dotenv.nvim" }
+```
+
+Using `Lazy`
+
+```lua
+{ "sameert89/dotenv.nvim" }
 ```
 
 # Basic Usage
