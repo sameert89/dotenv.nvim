@@ -60,7 +60,7 @@ local function parse_data(data)
 end
 
 local function get_env_file()
-  local files = vim.fs.find(dotenv.config.file_name, { upward = true, type = "file", path = vim.fn.stdfile_name('config') })
+  local files = vim.fs.find(dotenv.config.file_name, { upward = true, type = "file", path = vim.fn.stdpath('config') })
   if #files == 0 then
     return
   end
