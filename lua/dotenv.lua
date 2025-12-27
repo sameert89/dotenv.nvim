@@ -7,7 +7,7 @@ local dotenv = {}
 dotenv.config = {
   event = "VimEnter",
   enable_on_load = true,
-  verbose = true,
+  verbose = false,
   file_name = '.env',
 }
 
@@ -84,9 +84,9 @@ dotenv.get = function(key)
   local var = string.upper(key)
   if vim.env[var] == nil then
     print(var .. ": not found")
-    return
+    return ""
   end
-  print(vim.env[var])
+  return vim.env[var]
 end
 
 load()
