@@ -58,7 +58,7 @@ local function get_env_file()
   local files = vim.fs.find(dotenv.config.file_name, {
     upward = true,
     type = "file",
-    path = vim.fn.getcwd(),
+    path = vim.fn.stdpath("config"),
   })
 
   if #files == 0 then
